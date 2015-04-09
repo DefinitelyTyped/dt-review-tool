@@ -1,0 +1,18 @@
+{
+  "repos": [
+    {
+      "url": "https://github.com/borisyankov/DefinitelyTyped.git",
+      "ref": "master"
+    }
+  ],
+  "path": "typings",
+  "bundle": "typings/bundle.d.ts",
+  "dependencies": {
+    "es6-promise/es6-promise.d.ts": {
+      "ref": "8f16b0fd1acd81a555b74f912da849dccc7c9a42"
+    },
+    "node/node.d.ts": {
+      "ref": "8f16b0fd1acd81a555b74f912da849dccc7c9a42"
+    }
+  }
+}
