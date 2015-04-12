@@ -10,10 +10,10 @@ import github = require("./github");
 import header = require("definition-header");
 
 export function generateComment(prNumber: number) {
-    github
+    return github
         .getPRInfo({ number: prNumber })
         .then(info => {
-        info.files
+        return info.files
             .filter(file => /\.d\.ts$/.test(file.filename))
             .forEach((file, idx, files) => {
             console.log(`*${file.filename}*`);
@@ -42,6 +42,11 @@ export function generateComment(prNumber: number) {
                     console.log(":+1: or :-1:?")
                 }
 
+                console.log(``);
+                console.log(`check list`);
+                console.log(``);
+                console.log(`* [ ] pass the Travic-CI test?`);
+
             } else if (file.status === "added") {
                 var packageName = file.filename.substr(0, file.filename.indexOf("/"));
                 var testFileName = file.filename.substr(0, file.filename.length - 5) + "-tests.ts";
@@ -53,7 +58,7 @@ export function generateComment(prNumber: number) {
                 console.log(`  * https://www.npmjs.com/package/${packageName}`);
                 console.log(`  * http://bower.io/search/?q=${packageName}`);
                 console.log(`  * others?`);
-                console.log(`* [${testFileExists ? "X" : " "}] has a test file? (${testFileName} or others)`);
+                console.log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileName} or others)`);
                 console.log(`* [ ] pass the Travic-CI test?`);
             }
 

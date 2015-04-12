@@ -37,7 +37,7 @@ commandpost
 function errorHandler(err: any) {
     "use strict";
 
-    if (err instanceof Error) {
+    if (err instanceof Error && err.stack) {
         console.error(err.stack);
     } else {
         console.error(err);

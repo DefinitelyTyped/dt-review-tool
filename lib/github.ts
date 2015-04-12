@@ -20,6 +20,7 @@ export interface PullRequest {
 }
 
 export interface PullRequestFile {
+    sha: string;
     filename: string;
     status: string;
 }
@@ -28,6 +29,11 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
     var github = new Client({
         version: "3.0.0",
         // debug: true
+    });
+    github.authenticate({
+        type: "oauth",
+        key: "6dfc3629feef934dadd0",
+        secret: "7524eed1afd84b09f08f1439e7e08860add37c09"
     });
 
     return new Promise<PRInfo>((resolve, reject) => {
@@ -65,13 +71,16 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
     }).then(info => {
         var promises = info.files.filter(file => file.status === "modified").map(file => {
             return new Promise<PRInfo>((resolve, reject) => {
-                github.repos.getContent({
+                github.gitdata.getBlob({
                     user: req.user || "borisyankov",
                     repo: req.repo || "DefinitelyTyped",
-                    path: file.filename
+                    sha: file.sha
                 }, function(err, res) {
                         if (err) {
                             reject(err);
+                        } else if (res.encoding === "utf-8") {
+                            info.contents[file.filename] = res.content;
+                            resolve(info);
                         } else {
                             var b = new Buffer(res.content, "base64");
                             info.contents[file.filename] = b.toString();
