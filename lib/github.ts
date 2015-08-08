@@ -45,24 +45,24 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
             repo: req.repo || "DefinitelyTyped",
             number: req.number
         }, (err: any, res: any) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({
-                        pr: res,
-                        files: null,
-                        contents: {}
-                    });
-                }
-            });
+            if (err) {
+                reject(err);
+            } else {
+                resolve({
+                    pr: res,
+                    files: null,
+                    contents: {}
+                });
+            }
+        });
     })
         .then(info => {
-        return new Promise<PRInfo>((resolve, reject) => {
-            github.pullRequests.getFiles({
-                user: req.user || "borisyankov",
-                repo: req.repo || "DefinitelyTyped",
-                number: req.number
-            }, (err: any, res: any) => {
+            return new Promise<PRInfo>((resolve, reject) => {
+                github.pullRequests.getFiles({
+                    user: req.user || "borisyankov",
+                    repo: req.repo || "DefinitelyTyped",
+                    number: req.number
+                }, (err: any, res: any) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -70,15 +70,15 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                         resolve(info);
                     }
                 });
-        });
-    }).then(info => {
-        var promises = info.files.filter(file => file.status === "modified").map(file => {
-            return new Promise<PRInfo>((resolve, reject) => {
-                github.gitdata.getBlob({
-                    user: req.user || "borisyankov",
-                    repo: req.repo || "DefinitelyTyped",
-                    sha: file.sha
-                }, (err: any, res: any) => {
+            });
+        }).then(info => {
+            var promises = info.files.filter(file => file.status === "modified").map(file => {
+                return new Promise<PRInfo>((resolve, reject) => {
+                    github.gitdata.getBlob({
+                        user: req.user || "borisyankov",
+                        repo: req.repo || "DefinitelyTyped",
+                        sha: file.sha
+                    }, (err: any, res: any) => {
                         if (err) {
                             reject(err);
                         } else if (res.encoding === "utf-8") {
@@ -90,8 +90,8 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                             resolve(info);
                         }
                     });
+                });
             });
+            return Promise.all(promises).then(() => info);
         });
-        return Promise.all(promises).then(() => info);
-    });
 }

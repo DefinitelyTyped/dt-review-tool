@@ -27,9 +27,9 @@ var root = commandpost
     .create<RootOptions, RootArgs>("dtreview <prNumber>")
     .version(pkg.version, "-v, --version")
     .action((opts, args) => {
-    var num = parseInt(args.prNumber);
-    return review.generateComment(num);
-});
+        var num = parseInt(args.prNumber);
+        return review.generateComment(num);
+    });
 
 commandpost
     .exec(root, process.argv)
