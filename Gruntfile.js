@@ -112,10 +112,6 @@ module.exports = function (grunt) {
                     '<%= opt.client.jsTestOut %>/**/*_spec.js'
                 ]
             }
-        },
-        changelog: {
-            options: {
-            }
         }
     });
 

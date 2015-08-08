@@ -9,10 +9,15 @@
   "bundle": "typings/bundle.d.ts",
   "dependencies": {
     "es6-promise/es6-promise.d.ts": {
-      "ref": "8f16b0fd1acd81a555b74f912da849dccc7c9a42"
+      "ref": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
     },
     "node/node.d.ts": {
-      "ref": "8f16b0fd1acd81a555b74f912da849dccc7c9a42"
+      "ref": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+    }
+  },
+  "link": {
+    "npm": {
+      "include": true
     }
   }
 }

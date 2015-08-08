@@ -6,8 +6,8 @@ try {
 } catch (e) {
 }
 
-import github = require("./github");
-import header = require("definition-header");
+import * as github from "./github";
+import * as header from "definition-header";
 
 export function generateComment(prNumber: number) {
     "use strict";

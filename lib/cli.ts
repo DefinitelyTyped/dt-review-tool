@@ -3,6 +3,7 @@
 
 require("es6-promise").polyfill();
 
+/* tslint:disable:no-require-imports */
 try {
     // optional
     require("source-map-support").install();
@@ -10,10 +11,10 @@ try {
 }
 
 var pkg = require("../package.json");
+/* tslint:enable:no-require-imports */
 
-import review = require("./index");
-
-import commandpost = require("commandpost");
+import * as review from "./index";
+import * as commandpost from "commandpost";
 
 interface RootOptions {
 }

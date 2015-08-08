@@ -1,7 +1,9 @@
 /// <reference path="../github.d.ts" />
 /// <reference path="../node_modules/definition-header/dist/index.d.ts" />
 
+/* tslint:disable:no-require-imports */
 import Client = require("github");
+/* tslint:enable:no-require-imports */
 
 export interface PRInfo {
     pr: PullRequest;
