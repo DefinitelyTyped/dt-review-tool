@@ -10,6 +10,8 @@ import github = require("./github");
 import header = require("definition-header");
 
 export function generateComment(prNumber: number) {
+    "use strict";
+
     return github
         .getPRInfo({ number: prNumber })
         .then(info => {
@@ -33,13 +35,13 @@ export function generateComment(prNumber: number) {
                     if (accountName) {
                         return `@${accountName}`;
                     } else {
-                        console.log(`author: ${author.name} (account can't detected)`)
+                        console.log(`author: ${author.name} (account can't detected)`);
                     }
                 }).filter(name => !!name);
 
                 if (accountNames.length !== 0) {
                     console.log(`to author${accountNames.length === 1 ? "" : "s"}(${accountNames.join(" ") }). could you review this PR?`);
-                    console.log(":+1: or :-1:?")
+                    console.log(":+1: or :-1:?");
                 }
 
                 console.log(``);

@@ -26,8 +26,9 @@ export interface PullRequestFile {
 }
 
 export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
+    "use strict";
     var github = new Client({
-        version: "3.0.0",
+        version: "3.0.0"
         // debug: true
     });
     github.authenticate({
@@ -41,7 +42,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
             user: req.user || "borisyankov",
             repo: req.repo || "DefinitelyTyped",
             number: req.number
-        }, function(err, res) {
+        }, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -59,7 +60,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 user: req.user || "borisyankov",
                 repo: req.repo || "DefinitelyTyped",
                 number: req.number
-            }, function(err, res) {
+            }, (err: any, res: any) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -75,7 +76,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     user: req.user || "borisyankov",
                     repo: req.repo || "DefinitelyTyped",
                     sha: file.sha
-                }, function(err, res) {
+                }, (err: any, res: any) => {
                         if (err) {
                             reject(err);
                         } else if (res.encoding === "utf-8") {
