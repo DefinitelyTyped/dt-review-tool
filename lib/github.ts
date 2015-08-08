@@ -8,7 +8,8 @@ import Client = require("github");
 export interface PRInfo {
     pr: PullRequest;
     files: PullRequestFile[];
-    contents: { [path: string]: string };
+    contents: { [path: string]: string; };
+    baseContents: { [path: string]: string; };
 }
 
 export interface PRInfoRequest {
@@ -51,7 +52,8 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 resolve({
                     pr: res,
                     files: null,
-                    contents: {}
+                    contents: {},
+                    baseContents: {}
                 });
             }
         });
@@ -87,6 +89,28 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                         } else {
                             var b = new Buffer(res.content, "base64");
                             info.contents[file.filename] = b.toString();
+                            resolve(info);
+                        }
+                    });
+                });
+            });
+            return Promise.all(promises).then(() => info);
+        }).then(info => {
+            var promises = info.files.filter(file => file.status === "modified").map(file => {
+                return new Promise<PRInfo>((resolve, reject) => {
+                    github.repos.getContent({
+                        user: "borisyankov",
+                        repo: "DefinitelyTyped",
+                        path: file.filename
+                    }, (err: any, res: any) => {
+                        if (err) {
+                            reject(err);
+                        } else if (res.encoding === "utf-8") {
+                            info.baseContents[file.filename] = res.content;
+                            resolve(info);
+                        } else {
+                            var b = new Buffer(res.content, "base64");
+                            info.baseContents[file.filename] = b.toString();
                             resolve(info);
                         }
                     });

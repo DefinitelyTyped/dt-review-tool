@@ -22,7 +22,7 @@ export function generateComment(prNumber: number) {
                     console.log("");
 
                     if (file.status === "modified") {
-                        var content = info.contents[file.filename];
+                        var content = info.baseContents[file.filename];
                         var headerInfo = header.parse(content);
                         if (!headerInfo.success) {
                             console.error("!!! TODO !!!");
