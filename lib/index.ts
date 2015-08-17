@@ -30,7 +30,7 @@ export function generateComment(prNumber: number) {
                         }
                         var accountNames = headerInfo.value.authors.map(author => {
                             var regexp = /https?:\/\/github.com\/(.*)\/?/;
-                            var reArray = regexp.exec(author.url) || [];
+                            var reArray: string[] = regexp.exec(author.url) || [];
                             var accountName = reArray[1];
                             if (accountName) {
                                 return `@${accountName}`;
