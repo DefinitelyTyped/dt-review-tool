@@ -61,7 +61,7 @@ export function generateComment(prNumber: number) {
                         console.log(`  * http://bower.io/search/?q=${packageName}`);
                         console.log(`  * others?`);
                         console.log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileName} or others)`);
-                        console.log(`* [ ] pass the Travic-CI test?`);
+                        console.log(`* [ ] pass the Travis-CI test?`);
                     }
 
                     console.log("");
