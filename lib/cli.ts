@@ -1,5 +1,4 @@
 /// <reference path="../typings/es6-promise/es6-promise.d.ts" />
-/// <reference path="../node_modules/commandpost/commandpost.d.ts" />
 
 require("es6-promise").polyfill();
 

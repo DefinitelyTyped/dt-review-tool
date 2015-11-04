@@ -15,26 +15,27 @@
     "test": "test"
   },
   "dependencies": {
-    "commandpost": "^0.1.1",
+    "commandpost": "^1.0.0",
     "definition-header": "^0.1.0",
-    "es6-promise": "^2.3.0",
+    "es6-promise": "^3.0.2",
     "github": "^0.2.4"
   },
   "devDependencies": {
-    "espower-loader": "0.11.0",
+    "espower-loader": "1.0.0",
     "grunt": "0.4.5",
     "grunt-contrib-clean": "0.6.0",
     "grunt-dtsm": "0.2.9",
     "grunt-mocha-test": "0.12.7",
-    "grunt-ts": "4.2.0",
-    "grunt-tslint": "2.4.0",
+    "grunt-ts": "5.1.0",
+    "grunt-tslint": "2.5.0",
     "grunt-typedoc": "0.2.2",
-    "load-grunt-tasks": "3.2.0",
-    "mocha": "2.2.5",
-    "power-assert": "0.11.0",
-    "source-map-support": "0.3.2",
-    "time-grunt": "1.2.1",
-    "typedoc": "0.3.8",
-    "typescript": "1.5.3"
+    "load-grunt-tasks": "3.3.0",
+    "mocha": "2.3.3",
+    "power-assert": "1.1.0",
+    "source-map-support": "0.3.3",
+    "time-grunt": "1.2.2",
+    "tslint": "2.5.1",
+    "typedoc": "0.3.12",
+    "typescript": "1.6.2"
   }
 }
