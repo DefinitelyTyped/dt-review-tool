@@ -42,7 +42,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
 
     return new Promise<PRInfo>((resolve, reject) => {
         github.pullRequests.get({
-            user: req.user || "borisyankov",
+            user: req.user || "DefinitelyTyped",
             repo: req.repo || "DefinitelyTyped",
             number: req.number
         }, (err: any, res: any) => {
@@ -61,7 +61,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
         .then(info => {
             return new Promise<PRInfo>((resolve, reject) => {
                 github.pullRequests.getFiles({
-                    user: req.user || "borisyankov",
+                    user: req.user || "DefinitelyTyped",
                     repo: req.repo || "DefinitelyTyped",
                     number: req.number
                 }, (err: any, res: any) => {
@@ -74,10 +74,11 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 });
             });
         }).then(info => {
+            console.log(info);
             var promises = info.files.filter(file => file.status === "modified").map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.gitdata.getBlob({
-                        user: req.user || "borisyankov",
+                        user: req.user || "DefinitelyTyped",
                         repo: req.repo || "DefinitelyTyped",
                         sha: file.sha
                     }, (err: any, res: any) => {
@@ -99,7 +100,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
             var promises = info.files.filter(file => file.status === "modified").map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.repos.getContent({
-                        user: "borisyankov",
+                        user: "DefinitelyTyped",
                         repo: "DefinitelyTyped",
                         path: file.filename
                     }, (err: any, res: any) => {
