@@ -74,7 +74,6 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 });
             });
         }).then(info => {
-            console.log(info);
             var promises = info.files.filter(file => file.status === "modified").map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.gitdata.getBlob({
