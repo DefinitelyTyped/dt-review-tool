@@ -1,11 +1,3 @@
-/// <reference path="../typings/node/node.d.ts" />
-/// <reference path="../typings/es6-promise/es6-promise.d.ts" />
-
-try {
-    require("es6-promise").polyfill();
-} catch (e) {
-}
-
 import * as github from "./github";
 import * as header from "definition-header";
 

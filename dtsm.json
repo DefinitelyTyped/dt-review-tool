@@ -8,11 +8,11 @@
   "path": "typings",
   "bundle": "typings/bundle.d.ts",
   "dependencies": {
-    "es6-promise/es6-promise.d.ts": {
-      "ref": "0dd29bf8253536ae24e61c109524e924ea510046"
-    },
     "node/node.d.ts": {
-      "ref": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "ref": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "parsimmon/parsimmon.d.ts": {
+      "ref": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     }
   },
   "link": {
