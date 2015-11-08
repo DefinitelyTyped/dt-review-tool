@@ -1,7 +1,7 @@
 import * as github from "./github";
 import * as header from "definition-header";
 
-export function generateComment(pr: github.PRInfoRequest) {
+export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
     "use strict";
 
     return github
@@ -9,15 +9,20 @@ export function generateComment(pr: github.PRInfoRequest) {
         .then(info => {
             return info.files
                 .filter(file => /\.d\.ts(x)?$/.test(file.filename))
-                .forEach((file, idx, files) => {
-                    console.log(`*${file.filename}*`);
-                    console.log("");
+                .map((file, idx, files) => {
+                    let comment = "";
+                    function log(text: string) {
+                        comment += text + "\n";
+                    }
+
+                    log(`*${file.filename}*`);
+                    log("");
 
                     if (file.status === "modified") {
                         var content = info.baseContents[file.filename];
                         var headerInfo = header.parse(content);
                         if (!headerInfo.success) {
-                            console.error("!!! TODO !!!");
+                            log("!!! TODO !!!");
                             return;
                         }
                         var accountNames = headerInfo.value.authors.map(author => {
@@ -27,19 +32,19 @@ export function generateComment(pr: github.PRInfoRequest) {
                             if (accountName) {
                                 return `@${accountName}`;
                             } else {
-                                console.log(`author: ${author.name} (account can't detected)`);
+                                return `${author.name} (account can't detected)`;
                             }
-                        }).filter(name => !!name);
+                        });
 
                         if (accountNames.length !== 0) {
-                            console.log(`to author${accountNames.length === 1 ? "" : "s"}(${accountNames.join(" ") }). could you review this PR?`);
-                            console.log(":+1: or :-1:?");
+                            log(`to author${accountNames.length === 1 ? "" : "s"}(${accountNames.join(" ") }). could you review this PR?`);
+                            log(":+1: or :-1:?");
                         }
 
-                        console.log(``);
-                        console.log(`check list`);
-                        console.log(``);
-                        console.log(`* [ ] pass the Travic-CI test?`);
+                        log(``);
+                        log(`check list`);
+                        log(``);
+                        log(`* [ ] pass the Travic-CI test?`);
 
                     } else if (file.status === "added") {
                         var packageName = file.filename.substr(0, file.filename.indexOf("/"));
@@ -47,21 +52,17 @@ export function generateComment(pr: github.PRInfoRequest) {
                         testFileNames[1] = testFileNames[0] + "x";
                         var testFileExists = info.files.filter(file => testFileNames.indexOf(file.filename) !== -1).length !== 0;
 
-                        console.log(`check list`);
-                        console.log(``);
-                        console.log(`* [ ] is collect [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
-                        console.log(`  * https://www.npmjs.com/package/${packageName}`);
-                        console.log(`  * http://bower.io/search/?q=${packageName}`);
-                        console.log(`  * others?`);
-                        console.log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ") })`);
-                        console.log(`* [ ] pass the Travis-CI test?`);
+                        log(`check list`);
+                        log(``);
+                        log(`* [ ] is collect [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
+                        log(`  * https://www.npmjs.com/package/${packageName}`);
+                        log(`  * http://bower.io/search/?q=${packageName}`);
+                        log(`  * others?`);
+                        log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ") })`);
+                        log(`* [ ] pass the Travis-CI test?`);
                     }
 
-                    console.log("");
-                    if (idx < (files.length - 1)) {
-                        console.log("---");
-                        console.log("");
-                    }
+                    return comment;
                 });
         });
 }

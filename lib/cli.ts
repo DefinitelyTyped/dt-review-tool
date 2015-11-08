@@ -29,11 +29,14 @@ var root = commandpost
     .option("--repo <repo>", "target repository", "DefinitelyTyped")
     .action((opts, args) => {
         var num = parseInt(args.prNumber);
-        return review.generateComment({
-            user: opts.user[0],
-            repo: opts.repo[0],
-            number: num
-        });
+        return review
+            .generateComment({
+                user: opts.user[0],
+                repo: opts.repo[0],
+                number: num
+            }).then(comments => {
+                console.log(comments.join("\n------\n\n"));
+            });
     });
 
 commandpost
