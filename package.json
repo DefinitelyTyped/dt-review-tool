@@ -1,14 +1,14 @@
 {
-  "name": "dt-review-bot",
+  "name": "dt-review-tool",
   "author": "vvakame",
   "version": "0.0.1",
   "description": "Review bot for DefinitelyTyped",
   "main": "./index",
-  "license": {
-    "type": "MIT",
-    "url": "http://vvakame.mit-license.org/"
-  },
+  "license": "MIT",
   "scripts": {
+    "setup": "rm -rf typings && grunt setup",
+    "build": "grunt default",
+    "preversion": "npm run test",
     "test": "grunt test"
   },
   "directories": {
