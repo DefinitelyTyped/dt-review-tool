@@ -7,7 +7,7 @@ try {
 } catch (e) {
 }
 
-var pkg = require("../package.json");
+let pkg = require("../package.json");
 /* tslint:enable:no-require-imports */
 
 import * as review from "./index";
@@ -22,13 +22,13 @@ interface RootArgs {
     prNumber: string;
 }
 
-var root = commandpost
+let root = commandpost
     .create<RootOptions, RootArgs>("dtreview <prNumber>")
     .version(pkg.version, "-v, --version")
     .option("--user <user>", "target user(repository owner)", "DefinitelyTyped")
     .option("--repo <repo>", "target repository", "DefinitelyTyped")
     .action((opts, args) => {
-        var num = parseInt(args.prNumber);
+        let num = parseInt(args.prNumber);
         return review
             .generateComment({
                 user: opts.user[0],

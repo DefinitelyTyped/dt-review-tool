@@ -19,16 +19,16 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                     log("");
 
                     if (file.status === "modified") {
-                        var content = info.baseContents[file.filename];
-                        var headerInfo = header.parse(content);
+                        let content = info.baseContents[file.filename];
+                        let headerInfo = header.parse(content);
                         if (!headerInfo.success) {
                             log("!!! TODO !!!");
                             return;
                         }
-                        var accountNames = headerInfo.value.authors.map(author => {
-                            var regexp = /https?:\/\/github.com\/(.*)\/?/;
-                            var reArray: string[] = regexp.exec(author.url) || [];
-                            var accountName = reArray[1];
+                        let accountNames = headerInfo.value.authors.map(author => {
+                            let regexp = /https?:\/\/github.com\/(.*)\/?/;
+                            let reArray: string[] = regexp.exec(author.url) || [];
+                            let accountName = reArray[1];
                             if (accountName) {
                                 return `@${accountName}`;
                             } else {
@@ -47,10 +47,10 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         log(`* [ ] pass the Travic-CI test?`);
 
                     } else if (file.status === "added") {
-                        var packageName = file.filename.substr(0, file.filename.indexOf("/"));
-                        var testFileNames = [file.filename.substr(0, file.filename.length - 5) + "-tests.ts"];
+                        let packageName = file.filename.substr(0, file.filename.indexOf("/"));
+                        let testFileNames = [file.filename.substr(0, file.filename.length - 5) + "-tests.ts"];
                         testFileNames[1] = testFileNames[0] + "x";
-                        var testFileExists = info.files.filter(file => testFileNames.indexOf(file.filename) !== -1).length !== 0;
+                        let testFileExists = info.files.filter(file => testFileNames.indexOf(file.filename) !== -1).length !== 0;
 
                         log(`check list`);
                         log(``);

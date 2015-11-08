@@ -27,7 +27,7 @@ export interface PullRequestFile {
 
 export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
     "use strict";
-    var github = new Client({
+    let github = new Client({
         version: "3.0.0"
         // debug: true
     });
@@ -71,7 +71,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 });
             });
         }).then(info => {
-            var promises = info.files.filter(file => file.status === "modified").map(file => {
+            let promises = info.files.filter(file => file.status === "modified").map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.gitdata.getBlob({
                         user: req.user || "DefinitelyTyped",
@@ -84,7 +84,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                             info.contents[file.filename] = res.content;
                             resolve(info);
                         } else {
-                            var b = new Buffer(res.content, "base64");
+                            let b = new Buffer(res.content, "base64");
                             info.contents[file.filename] = b.toString();
                             resolve(info);
                         }
@@ -93,7 +93,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
             });
             return Promise.all(promises).then(() => info);
         }).then(info => {
-            var promises = info.files.filter(file => file.status === "modified").map(file => {
+            let promises = info.files.filter(file => file.status === "modified").map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.repos.getContent({
                         user: "DefinitelyTyped",
@@ -106,7 +106,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                             info.baseContents[file.filename] = res.content;
                             resolve(info);
                         } else {
-                            var b = new Buffer(res.content, "base64");
+                            let b = new Buffer(res.content, "base64");
                             info.baseContents[file.filename] = b.toString();
                             resolve(info);
                         }
