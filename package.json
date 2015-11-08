@@ -3,7 +3,7 @@
   "author": "vvakame",
   "version": "0.0.3",
   "description": "Review bot for DefinitelyTyped",
-  "main": "./index",
+  "main": "./lib/index",
   "license": "MIT",
   "scripts": {
     "setup": "rm -rf typings && grunt setup",
