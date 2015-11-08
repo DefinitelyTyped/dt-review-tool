@@ -1,11 +1,11 @@
 import * as github from "./github";
 import * as header from "definition-header";
 
-export function generateComment(prNumber: number) {
+export function generateComment(pr: github.PRInfoRequest) {
     "use strict";
 
     return github
-        .getPRInfo({ number: prNumber })
+        .getPRInfo(pr)
         .then(info => {
             return info.files
                 .filter(file => /\.d\.ts(x)?$/.test(file.filename))
@@ -53,7 +53,7 @@ export function generateComment(prNumber: number) {
                         console.log(`  * https://www.npmjs.com/package/${packageName}`);
                         console.log(`  * http://bower.io/search/?q=${packageName}`);
                         console.log(`  * others?`);
-                        console.log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ")})`);
+                        console.log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ") })`);
                         console.log(`* [ ] pass the Travis-CI test?`);
                     }
 

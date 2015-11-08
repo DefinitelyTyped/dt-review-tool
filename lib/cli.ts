@@ -14,6 +14,8 @@ import * as review from "./index";
 import * as commandpost from "commandpost";
 
 interface RootOptions {
+    user: string[];
+    repo: string[];
 }
 
 interface RootArgs {
@@ -23,9 +25,15 @@ interface RootArgs {
 var root = commandpost
     .create<RootOptions, RootArgs>("dtreview <prNumber>")
     .version(pkg.version, "-v, --version")
+    .option("--user <user>", "target user(repository owner)", "DefinitelyTyped")
+    .option("--repo <repo>", "target repository", "DefinitelyTyped")
     .action((opts, args) => {
         var num = parseInt(args.prNumber);
-        return review.generateComment(num);
+        return review.generateComment({
+            user: opts.user[0],
+            repo: opts.repo[0],
+            number: num
+        });
     });
 
 commandpost
