@@ -23,6 +23,7 @@
     "exclude": [],
     "files": [
         "github.d.ts",
+        "index.d.ts",
         "./lib/cli.ts",
         "./lib/github.ts",
         "./lib/index.ts",
