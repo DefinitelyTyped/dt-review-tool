@@ -54,7 +54,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
 
                         log(`check list`);
                         log(``);
-                        log(`* [ ] is collect [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
+                        log(`* [ ] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
                         log(`  * https://www.npmjs.com/package/${packageName}`);
                         log(`  * http://bower.io/search/?q=${packageName}`);
                         log(`  * others?`);
