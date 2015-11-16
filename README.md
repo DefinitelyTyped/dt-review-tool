@@ -17,7 +17,7 @@ $ ./bin/dtreview --help
 $ ./bin/dtreview 1982
 *pegjs/pegjs.d.ts*
 
-check list
+Checklist
 
 * [ ] is collect [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?
   * https://www.npmjs.com/package/pegjs

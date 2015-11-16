@@ -42,7 +42,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         }
 
                         log(``);
-                        log(`check list`);
+                        log(`Checklist`);
                         log(``);
                         log(`* [ ] pass the Travis CI test?`);
 
@@ -52,7 +52,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         testFileNames[1] = testFileNames[0] + "x";
                         let testFileExists = info.files.filter(file => testFileNames.indexOf(file.filename) !== -1).length !== 0;
 
-                        log(`check list`);
+                        log(`Checklist`);
                         log(``);
                         log(`* [ ] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
                         log(`  * https://www.npmjs.com/package/${packageName}`);
