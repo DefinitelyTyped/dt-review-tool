@@ -2,8 +2,8 @@
 
 ## Functions
 
-1. present a self-check list.
-2. mention to authors.
+1. Present a self-check list.
+2. Mention to authors.
 
 ## How to use
 
@@ -19,7 +19,7 @@ $ ./bin/dtreview 1982
 
 Checklist
 
-* [ ] is collect [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?
+* [ ] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?
   * https://www.npmjs.com/package/pegjs
   * http://bower.io/search/?q=pegjs
   * others?
