@@ -44,7 +44,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         log(``);
                         log(`check list`);
                         log(``);
-                        log(`* [ ] pass the Travic-CI test?`);
+                        log(`* [ ] pass the Travis CI test?`);
 
                     } else if (file.status === "added") {
                         let packageName = file.filename.substr(0, file.filename.indexOf("/"));
@@ -59,7 +59,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         log(`  * http://bower.io/search/?q=${packageName}`);
                         log(`  * others?`);
                         log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ") })`);
-                        log(`* [ ] pass the Travis-CI test?`);
+                        log(`* [ ] pass the Travis CI test?`);
                     }
 
                     return comment;

@@ -24,7 +24,7 @@ check list
   * http://bower.io/search/?q=pegjs
   * others?
 * [X] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (pegjs/pegjs-tests.ts or others)
-* [ ] pass the Travic-CI test?
+* [ ] pass the Travis CI test?
 
 # copy & paste to pull request!
 ```
