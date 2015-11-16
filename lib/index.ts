@@ -37,7 +37,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         });
 
                         if (accountNames.length !== 0) {
-                            log(`to author${accountNames.length === 1 ? "" : "s"}(${accountNames.join(" ") }). could you review this PR?`);
+                            log(`to author${accountNames.length === 1 ? "" : "s"} (${accountNames.join(" ") }). could you review this PR?`);
                             log(":+1: or :-1:?");
                         }
 
