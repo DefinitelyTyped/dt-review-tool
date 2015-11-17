@@ -2,8 +2,8 @@
 
 ## Functions
 
-1. present a self-check list.
-2. mention to authors.
+1. Present a self-check list.
+2. Mention to authors.
 
 ## How to use
 
@@ -17,14 +17,14 @@ $ ./bin/dtreview --help
 $ ./bin/dtreview 1982
 *pegjs/pegjs.d.ts*
 
-check list
+Checklist
 
-* [ ] is collect [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?
+* [ ] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?
   * https://www.npmjs.com/package/pegjs
   * http://bower.io/search/?q=pegjs
   * others?
 * [X] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (pegjs/pegjs-tests.ts or others)
-* [ ] pass the Travic-CI test?
+* [ ] pass the Travis CI test?
 
 # copy & paste to pull request!
 ```

@@ -37,14 +37,14 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         });
 
                         if (accountNames.length !== 0) {
-                            log(`to author${accountNames.length === 1 ? "" : "s"}(${accountNames.join(" ") }). could you review this PR?`);
+                            log(`to author${accountNames.length === 1 ? "" : "s"} (${accountNames.join(" ") }). Could you review this PR?`);
                             log(":+1: or :-1:?");
                         }
 
                         log(``);
-                        log(`check list`);
+                        log(`Checklist`);
                         log(``);
-                        log(`* [ ] pass the Travic-CI test?`);
+                        log(`* [ ] pass the Travis CI test?`);
 
                     } else if (file.status === "added") {
                         let packageName = file.filename.substr(0, file.filename.indexOf("/"));
@@ -52,14 +52,14 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         testFileNames[1] = testFileNames[0] + "x";
                         let testFileExists = info.files.filter(file => testFileNames.indexOf(file.filename) !== -1).length !== 0;
 
-                        log(`check list`);
+                        log(`Checklist`);
                         log(``);
                         log(`* [ ] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
                         log(`  * https://www.npmjs.com/package/${packageName}`);
                         log(`  * http://bower.io/search/?q=${packageName}`);
                         log(`  * others?`);
                         log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ") })`);
-                        log(`* [ ] pass the Travis-CI test?`);
+                        log(`* [ ] pass the Travis CI test?`);
                     }
 
                     return comment;
