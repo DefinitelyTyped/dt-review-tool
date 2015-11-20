@@ -32,7 +32,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                             if (accountName) {
                                 return `@${accountName}`;
                             } else {
-                                return `${author.name} (account can't detected)`;
+                                return `${author.name} (account can't be detected)`;
                             }
                         });
 
