@@ -1,6 +1,6 @@
 require("es6-promise").polyfill();
 
-/* tslint:disable:no-require-imports */
+/* tslint:disable:no-require-imports no-empty */
 try {
     // optional
     require("source-map-support").install();
@@ -8,7 +8,7 @@ try {
 }
 
 let pkg = require("../package.json");
-/* tslint:enable:no-require-imports */
+/* tslint:enable:no-require-imports no-empty */
 
 import * as review from "./index";
 import * as commandpost from "commandpost";
@@ -28,12 +28,12 @@ let root = commandpost
     .option("--user <user>", "target user(repository owner)", "DefinitelyTyped")
     .option("--repo <repo>", "target repository", "DefinitelyTyped")
     .action((opts, args) => {
-        let num = parseInt(args.prNumber);
+        let num = parseInt(args.prNumber, 10);
         return review
             .generateComment({
                 user: opts.user[0],
                 repo: opts.repo[0],
-                number: num
+                number: num,
             }).then(comments => {
                 console.log(comments.join("\n------\n\n"));
             });

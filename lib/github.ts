@@ -34,14 +34,14 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
     github.authenticate({
         type: "oauth",
         key: "6dfc3629feef934dadd0",
-        secret: "7524eed1afd84b09f08f1439e7e08860add37c09"
+        secret: "7524eed1afd84b09f08f1439e7e08860add37c09",
     });
 
     return new Promise<PRInfo>((resolve, reject) => {
         github.pullRequests.get({
             user: req.user || "DefinitelyTyped",
             repo: req.repo || "DefinitelyTyped",
-            number: req.number
+            number: req.number,
         }, (err: any, res: any) => {
             if (err) {
                 reject(err);
@@ -50,7 +50,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     pr: res,
                     files: null,
                     contents: {},
-                    baseContents: {}
+                    baseContents: {},
                 });
             }
         });
@@ -60,7 +60,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 github.pullRequests.getFiles({
                     user: req.user || "DefinitelyTyped",
                     repo: req.repo || "DefinitelyTyped",
-                    number: req.number
+                    number: req.number,
                 }, (err: any, res: any) => {
                     if (err) {
                         reject(err);
@@ -76,7 +76,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     github.gitdata.getBlob({
                         user: req.user || "DefinitelyTyped",
                         repo: req.repo || "DefinitelyTyped",
-                        sha: file.sha
+                        sha: file.sha,
                     }, (err: any, res: any) => {
                         if (err) {
                             reject(err);
@@ -98,7 +98,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     github.repos.getContent({
                         user: "DefinitelyTyped",
                         repo: "DefinitelyTyped",
-                        path: file.filename
+                        path: file.filename,
                     }, (err: any, res: any) => {
                         if (err) {
                             reject(err);

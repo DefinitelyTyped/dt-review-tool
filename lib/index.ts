@@ -50,7 +50,7 @@ export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
                         let packageName = file.filename.substr(0, file.filename.indexOf("/"));
                         let testFileNames = [file.filename.substr(0, file.filename.length - 5) + "-tests.ts"];
                         testFileNames[1] = testFileNames[0] + "x";
-                        let testFileExists = info.files.filter(file => testFileNames.indexOf(file.filename) !== -1).length !== 0;
+                        let testFileExists = info.files.filter(f => testFileNames.indexOf(f.filename) !== -1).length !== 0;
 
                         log(`Checklist`);
                         log(``);
