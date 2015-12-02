@@ -1,4 +1,6 @@
+/* tslint:disable:no-require-imports */
 require("es6-promise").polyfill();
+/* tslint:enable:no-require-imports */
 
 /* tslint:disable:no-require-imports no-empty */
 try {
