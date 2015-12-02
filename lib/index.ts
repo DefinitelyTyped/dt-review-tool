@@ -1,4 +1,5 @@
 import * as github from "./github";
+import * as npm from "npm";
 import * as header from "definition-header";
 
 export interface ReviewResult {
@@ -10,7 +11,7 @@ export interface ReviewResult {
     message?: string;
 }
 
-function processAdded(reviewResult: ReviewResult): ReviewResult {
+function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     "use strict";
 
     let comment = "";
@@ -26,18 +27,43 @@ function processAdded(reviewResult: ReviewResult): ReviewResult {
     testFileNames[1] = testFileNames[0] + "x";
     let testFileExists = info.files.filter(f => testFileNames.indexOf(f.filename) !== -1).length !== 0;
 
-    log(`Checklist`);
-    log(``);
-    log(`* [ ] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
-    log(`  * https://www.npmjs.com/package/${packageName}`);
-    log(`  * http://bower.io/search/?q=${packageName}`);
-    log(`  * others?`);
-    log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ")})`);
-    log(`* [ ] pass the Travis CI test?`);
+    let content = info.contents[file.filename];
+    let headerInfo = header.parse(content);
+    if (headerInfo.success) {
+        reviewResult.baseHeader = headerInfo;
+    }
 
-    reviewResult.message = comment;
+    return new Promise<ReviewResult>((resolve, reject) => {
+        npm.load(null, err => {
+            (npm.commands.info as any)([packageName], true, (err: any, result: any) => {
+                let npmExists = false;
+                let info: any;
+                if (!err && reviewResult.baseHeader) {
+                    info = result[Object.keys(result)[0]] || {};
+                    if (info.homepage === reviewResult.baseHeader.value.project[0].url) {
+                        npmExists = true;
+                    }
+                }
 
-    return reviewResult;
+                log(`Checklist`);
+                log(``);
+                log(`* [${npmExists ? "X" : " "}] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
+                if (npmExists) {
+                    log(`  * https://www.npmjs.com/package/${packageName} - ${info.homepage}`);
+                } else {
+                    log(`  * https://www.npmjs.com/package/${packageName}`);
+                    log(`  * http://bower.io/search/?q=${packageName}`);
+                    log(`  * others?`);
+                }
+                log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ")})`);
+                log(`* [ ] pass the Travis CI test?`);
+
+                reviewResult.message = comment;
+
+                resolve(reviewResult);
+            });
+        });
+    });
 }
 
 function convertAuthorToAccount(author: header.model.Author): string[] {
@@ -56,7 +82,7 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
     return null;
 }
 
-function processModified(reviewResult: ReviewResult): ReviewResult {
+function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
     "use strict";
 
     let comment = "";
@@ -71,7 +97,7 @@ function processModified(reviewResult: ReviewResult): ReviewResult {
     let headerInfo = header.parse(content);
     if (!headerInfo.success) {
         reviewResult.message = "can't parse definition header...";
-        return reviewResult;
+        return Promise.resolve(reviewResult);
     }
     reviewResult.baseHeader = headerInfo;
     headerInfo.value.authors.forEach(author => {
@@ -109,7 +135,7 @@ function processModified(reviewResult: ReviewResult): ReviewResult {
 
     reviewResult.message = comment;
 
-    return reviewResult;
+    return Promise.resolve(reviewResult);
 }
 
 export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
@@ -125,7 +151,7 @@ export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewR
     return github
         .getPRInfo(pr)
         .then(info => {
-            return info.files
+            let ps = info.files
                 .filter(file => /\.d\.ts(x)?$/.test(file.filename))
                 .map((file, idx, files) => {
                     let reviewResult: ReviewResult = {
@@ -143,7 +169,8 @@ export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewR
 
                     reviewResult.message = `unknown status: ${file.status}`;
 
-                    return reviewResult;
+                    return Promise.resolve(reviewResult);
                 });
+            return Promise.all(ps);
         });
 }

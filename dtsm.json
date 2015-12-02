@@ -13,6 +13,9 @@
     },
     "parsimmon/parsimmon.d.ts": {
       "ref": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "npm/npm.d.ts": {
+      "ref": "715df764419937a75a25dcd76bfc954157bc7b96"
     }
   },
   "link": {

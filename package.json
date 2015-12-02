@@ -18,7 +18,8 @@
     "commandpost": "^1.0.0",
     "definition-header": "^0.2.0",
     "es6-promise": "^3.0.2",
-    "github": "^0.2.4"
+    "github": "^0.2.4",
+    "npm": "^3.5.0"
   },
   "devDependencies": {
     "espower-loader": "1.0.0",

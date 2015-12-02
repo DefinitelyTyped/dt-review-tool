@@ -29,6 +29,7 @@
         "./lib/index.ts",
         "./typings/bundle.d.ts",
         "./typings/node/node.d.ts",
+        "./typings/npm/npm.d.ts",
         "./typings/parsimmon/parsimmon.d.ts",
         "./node_modules/typescript/lib/lib.es6.d.ts"
     ]
