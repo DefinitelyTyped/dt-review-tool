@@ -76,6 +76,14 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@kontan"];
         case "http://ianobermiller.com":
             return ["@ianobermiller"];
+        case "https://invent.life/":
+            return ["@seanhess"];
+        case "http://blog.gandjustas.ru":
+            return ["@gandjustas"];
+        case "http://www.esri.com":
+            return ["@dasa"];
+        case "http://devexpress.com/":
+            return ["@Seteh"];
         default:
             return null;
     }
