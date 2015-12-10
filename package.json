@@ -1,7 +1,7 @@
 {
   "name": "dt-review-tool",
   "author": "vvakame",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Review bot for DefinitelyTyped",
   "main": "./lib/index",
   "license": "MIT",
