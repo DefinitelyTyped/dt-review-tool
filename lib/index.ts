@@ -146,6 +146,14 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
     return Promise.resolve(reviewResult);
 }
 
+function processRemoved(reviewResult: ReviewResult): Promise<ReviewResult> {
+    "use strict";
+
+    reviewResult.message = "REMOVED!";
+
+    return Promise.resolve(reviewResult);
+}
+
 export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
     "use strict";
 
@@ -173,6 +181,8 @@ export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewR
                         return processModified(reviewResult);
                     } else if (file.status === "added") {
                         return processAdded(reviewResult);
+                    } else if (file.status === "removed") {
+                        return processRemoved(reviewResult);
                     }
 
                     reviewResult.message = `unknown status: ${file.status}`;
