@@ -86,10 +86,13 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@Seteh"];
         case "https://rhysd.github.io":
             return ["@rhysd"];
+        case "https://github.com/a904guy/,http://a904guy.com":
+            return ["@a904guy"];
+        case "http://www.colsa.com/":
+            return ["@ColsaCorp"];
         default:
             return null;
     }
-    return null;
 }
 
 function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
