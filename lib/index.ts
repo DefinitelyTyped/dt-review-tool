@@ -90,6 +90,8 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@a904guy"];
         case "http://www.colsa.com/":
             return ["@ColsaCorp"];
+        case "https://vilic.github.io/":
+            return ["@vilic"];
         default:
             return null;
     }
