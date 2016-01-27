@@ -8,7 +8,7 @@
 ## How to use
 
 ```
-$ git clone git@github.com:DefinitelyTyped/dt-review-bot.git
+$ git clone git@github.com:DefinitelyTyped/dt-review-tool.git
 $ cd dt-review-bot
 $ npm install
 $ grunt setup default
