@@ -92,6 +92,12 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@ColsaCorp"];
         case "https://vilic.github.io/":
             return ["@vilic"];
+        case "http://guido.io":
+            return ["@gzuidhof"];
+        case "http://raphael.atallah.me":
+            return ["@devnixs"];
+        case "http://abraaoalves.github.io":
+            return ["@AbraaoAlves"];
         default:
             return null;
     }
