@@ -98,6 +98,12 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@devnixs"];
         case "http://abraaoalves.github.io":
             return ["@AbraaoAlves"];
+        case "https://github.com/ButterFaces/ButterFaces":
+            return ["@larmic"];
+        case "http://midnight-design.at/":
+            return ["@MidnightDesign"];
+        case "http://pspeter3.com":
+            return ["@pspeter3"];
         default:
             return null;
     }
