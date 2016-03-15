@@ -84,20 +84,14 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@dasa"];
         case "http://devexpress.com/":
             return ["@Seteh"];
-        case "https://rhysd.github.io":
-            return ["@rhysd"];
         case "https://github.com/a904guy/,http://a904guy.com":
             return ["@a904guy"];
         case "http://www.colsa.com/":
             return ["@ColsaCorp"];
-        case "https://vilic.github.io/":
-            return ["@vilic"];
         case "http://guido.io":
             return ["@gzuidhof"];
         case "http://raphael.atallah.me":
             return ["@devnixs"];
-        case "http://abraaoalves.github.io":
-            return ["@AbraaoAlves"];
         case "https://github.com/ButterFaces/ButterFaces":
             return ["@larmic"];
         case "http://midnight-design.at/":
@@ -134,8 +128,9 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
             return;
         }
 
-        let regexp = /https?:\/\/github.com\/(.*)\/?/;
-        let reArray: string[] = regexp.exec(author.url) || [];
+        let regexp1 = /https?:\/\/github.com\/(.+)\/?/;
+        let regexp2 = /https?:\/\/([^.]+)\.github\.io\/?/;
+        let reArray: string[] = regexp1.exec(author.url) || regexp2.exec(author.url) || [];
         let accountName = reArray[1];
         if (accountName) {
             reviewResult.authorAccounts.push(`@${accountName}`);
