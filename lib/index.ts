@@ -1,3 +1,5 @@
+import * as url from "url";
+
 import * as github from "./github";
 import * as npm from "npm";
 import * as header from "definition-header";
@@ -40,8 +42,13 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
                 let info: any;
                 if (!err && reviewResult.baseHeader) {
                     info = result[Object.keys(result)[0]] || {};
-                    if (info.homepage === reviewResult.baseHeader.value.project[0].url) {
-                        npmExists = true;
+                    if (info.homepage && reviewResult.baseHeader.value.project[0].url) {
+                        let infoUrl = url.parse(info.homepage);
+                        let headerUrl = url.parse(reviewResult.baseHeader.value.project[0].url);
+                        if (infoUrl.host === headerUrl.host && infoUrl.path === headerUrl.path) {
+                            // ignore protocol mismatch 
+                            npmExists = true;
+                        }
                     }
                 }
 
