@@ -9,13 +9,13 @@
   "bundle": "typings/bundle.d.ts",
   "dependencies": {
     "node/node.d.ts": {
-      "ref": "0d622d857f97d44ea7dcad2b3edec1f23c48fe9e"
+      "ref": "1ec3d510e0c4d7c50e708ca7cb0765c7e06fa2ed"
     },
     "parsimmon/parsimmon.d.ts": {
-      "ref": "0d622d857f97d44ea7dcad2b3edec1f23c48fe9e"
+      "ref": "1ec3d510e0c4d7c50e708ca7cb0765c7e06fa2ed"
     },
     "npm/npm.d.ts": {
-      "ref": "0d622d857f97d44ea7dcad2b3edec1f23c48fe9e"
+      "ref": "1ec3d510e0c4d7c50e708ca7cb0765c7e06fa2ed"
     }
   },
   "link": {

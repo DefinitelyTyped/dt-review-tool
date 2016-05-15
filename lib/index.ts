@@ -46,7 +46,7 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
                         let infoUrl = url.parse(info.homepage);
                         let headerUrl = url.parse(reviewResult.baseHeader.value.project[0].url);
                         if (infoUrl.host === headerUrl.host && infoUrl.path === headerUrl.path) {
-                            // ignore protocol mismatch 
+                            // ignore protocol mismatch
                             npmExists = true;
                         }
                     }
@@ -214,6 +214,6 @@ export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewR
 
                     return Promise.resolve(reviewResult);
                 });
-            return Promise.all(ps);
+            return Promise.all<ReviewResult>(ps);
         });
 }
