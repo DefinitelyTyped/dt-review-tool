@@ -105,6 +105,10 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@MidnightDesign"];
         case "http://pspeter3.com":
             return ["@pspeter3"];
+        case "http://dreampulse.de":
+            return ["@dreampulse"];
+        case "http://handsoncode.net/":
+            return ["@swistach"];
         default:
             return null;
     }
