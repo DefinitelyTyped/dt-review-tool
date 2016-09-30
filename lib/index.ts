@@ -109,6 +109,16 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
             return ["@dreampulse"];
         case "http://handsoncode.net/":
             return ["@swistach"];
+        case "http://samchon.org":
+            return ["@samchon"];
+        case "http://www.tim-jonischkat.de":
+            return ["@timjonischkat"];
+        case "http://leancloud.cn":
+            return ["@wujun4code"];
+        case "http://alan.norbauer.com/":
+            return ["@altano"];
+        case "http://cs.toronto.edu/~wehr":
+            return ["@DustinWehr"];
         default:
             return null;
     }
