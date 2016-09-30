@@ -1,36 +1,42 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "moduleResolution": "node",
         "target": "es5",
+        "lib": [
+            "dom",
+            "es2017"
+        ],
+        "types": [
+            "node"
+        ],
         "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "stripInternal": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": false,
         "rootDir": ".",
         "sourceMap": true,
         "declaration": true,
-        "listFiles": true,
+        "listFiles": false,
+        "traceResolution": false,
         "newLine": "LF",
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "inlineSources": true,
+        "listEmittedFiles": false
     },
-    "filesGlob": [
-        "*.d.ts",
-        "./**/*.ts",
-        "./**/*.tsx",
-        "!./**/*.d.ts",
-        "./typings/**/*.d.ts",
-        "!./node_modules/**/*",
-        "./node_modules/typescript/lib/lib.es6.d.ts"
+    "include": [
+        "lib/**/*.ts",
+        "github.d.ts"
     ],
-    "exclude": [],
-    "files": [
-        "github.d.ts",
-        "index.d.ts",
-        "./lib/cli.ts",
-        "./lib/github.ts",
-        "./lib/index.ts",
-        "./typings/bundle.d.ts",
-        "./typings/node/node.d.ts",
-        "./typings/npm/npm.d.ts",
-        "./typings/parsimmon/parsimmon.d.ts",
-        "./node_modules/typescript/lib/lib.es6.d.ts"
+    "exclude": [
+        "node_modules"
     ]
 }

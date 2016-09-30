@@ -1,7 +1,3 @@
-/* tslint:disable:no-require-imports */
-require("es6-promise").polyfill();
-/* tslint:enable:no-require-imports */
-
 /* tslint:disable:no-require-imports no-empty */
 try {
     // optional
@@ -12,7 +8,7 @@ try {
 let pkg = require("../package.json");
 /* tslint:enable:no-require-imports no-empty */
 
-import * as review from "./index";
+import * as review from "./";
 import * as commandpost from "commandpost";
 
 interface RootOptions {
@@ -46,8 +42,6 @@ commandpost
     .catch(errorHandler);
 
 function errorHandler(err: any) {
-    "use strict";
-
     if (err instanceof Error && err.stack) {
         console.error(err.stack);
     } else {

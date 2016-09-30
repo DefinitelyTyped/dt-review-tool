@@ -14,8 +14,6 @@ export interface ReviewResult {
 }
 
 function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
-    "use strict";
-
     let comment = "";
     function log(text: string) {
         comment += text + "\n";
@@ -27,7 +25,7 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     let packageName = file.filename.substr(0, file.filename.indexOf("/"));
     let testFileNames = [file.filename.substr(0, file.filename.length - 5) + "-tests.ts"];
     testFileNames[1] = testFileNames[0] + "x";
-    let testFileExists = info.files.filter(f => testFileNames.indexOf(f.filename) !== -1).length !== 0;
+    let testFileExists = info.files!.filter(f => testFileNames.indexOf(f.filename) !== -1).length !== 0;
 
     let content = info.contents[file.filename];
     let headerInfo = header.parse(content);
@@ -35,16 +33,16 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
         reviewResult.baseHeader = headerInfo;
     }
 
-    return new Promise<ReviewResult>((resolve, reject) => {
-        npm.load(null, err => {
+    return new Promise<ReviewResult>((resolve, _reject) => {
+        npm.load(null as any, _err => {
             (npm.commands.info as any)([packageName], true, (err: any, result: any) => {
                 let npmExists = false;
                 let info: any;
                 if (!err && reviewResult.baseHeader) {
                     info = result[Object.keys(result)[0]] || {};
-                    if (info.homepage && reviewResult.baseHeader.value.project[0].url) {
+                    if (info.homepage && reviewResult.baseHeader.value!.project[0].url) {
                         let infoUrl = url.parse(info.homepage);
-                        let headerUrl = url.parse(reviewResult.baseHeader.value.project[0].url);
+                        let headerUrl = url.parse(reviewResult.baseHeader.value!.project[0].url);
                         if (infoUrl.host === headerUrl.host && infoUrl.path === headerUrl.path) {
                             // ignore protocol mismatch
                             npmExists = true;
@@ -73,9 +71,7 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     });
 }
 
-function convertAuthorToAccount(author: header.model.Author): string[] {
-    "use strict";
-
+function convertAuthorToAccount(author: header.model.Author): string[] | null {
     switch (author.url) {
         case "https://asana.com":
             return ["@pspeter3", "@vsiao"];
@@ -125,8 +121,6 @@ function convertAuthorToAccount(author: header.model.Author): string[] {
 }
 
 function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
-    "use strict";
-
     let comment = "";
     function log(text: string) {
         comment += text + "\n";
@@ -142,7 +136,7 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
         return Promise.resolve(reviewResult);
     }
     reviewResult.baseHeader = headerInfo;
-    headerInfo.value.authors.forEach(author => {
+    headerInfo.value!.authors.forEach(author => {
         let accountNames = convertAuthorToAccount(author);
         if (accountNames) {
             reviewResult.authorAccounts = reviewResult.authorAccounts.concat(accountNames);
@@ -160,7 +154,7 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
         }
     });
 
-    let accountNames: string[] = [].concat(reviewResult.authorAccounts);
+    let accountNames: string[] = ([] as string[]).concat(reviewResult.authorAccounts);
 
     reviewResult.unknownAuthors.forEach(author => {
         accountNames.push(`${author.name} (account can't be detected)`);
@@ -182,29 +176,23 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
 }
 
 function processRemoved(reviewResult: ReviewResult): Promise<ReviewResult> {
-    "use strict";
-
     reviewResult.message = "REMOVED!";
 
     return Promise.resolve(reviewResult);
 }
 
 export function generateComment(pr: github.PRInfoRequest): Promise<string[]> {
-    "use strict";
-
     return constructReviewResult(pr)
         .then(ts => ts.map(result => [`*${result.file.filename}*`, "", result.message].join("\n")));
 }
 
 export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewResult[]> {
-    "use strict";
-
     return github
         .getPRInfo(pr)
         .then(info => {
-            let ps = info.files
+            let ps = info.files!
                 .filter(file => /\.d\.ts(x)?$/.test(file.filename))
-                .map((file, idx, files) => {
+                .map(file => {
                     let reviewResult: ReviewResult = {
                         parent: info,
                         file: file,

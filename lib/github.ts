@@ -4,7 +4,7 @@ import Client = require("github");
 
 export interface PRInfo {
     pr: PullRequest;
-    files: PullRequestFile[];
+    files: PullRequestFile[] | null;
     contents: { [path: string]: string; };
     baseContents: { [path: string]: string; };
 }
@@ -26,7 +26,6 @@ export interface PullRequestFile {
 }
 
 export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
-    "use strict";
     let github = new Client({
         version: "3.0.0",
         // debug: true
@@ -71,7 +70,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 });
             });
         }).then(info => {
-            let promises = info.files.map(file => {
+            let promises = info.files!.map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.gitdata.getBlob({
                         user: req.user || "DefinitelyTyped",
@@ -93,7 +92,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
             });
             return Promise.all(promises).then(() => info);
         }).then(info => {
-            let promises = info.files.filter(file => file.status === "modified").map(file => {
+            let promises = info.files!.filter(file => file.status === "modified").map(file => {
                 return new Promise<PRInfo>((resolve, reject) => {
                     github.repos.getContent({
                         user: "DefinitelyTyped",
