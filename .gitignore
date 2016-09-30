@@ -5,7 +5,7 @@ npm-debug.log
 node_modules/
 
 # editor
-.vscode/
+.vscode/*.db
 
 # for grunt
 .tscache/

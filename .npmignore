@@ -17,6 +17,7 @@ test/
 
 # misc
 .gitignore
+.vscode/
 Gruntfile.js
 tslint.json
 
