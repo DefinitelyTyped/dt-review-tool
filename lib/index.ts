@@ -120,6 +120,15 @@ function convertAuthorToAccount(author: header.model.Author): string[] | null {
     }
 }
 
+function convertInactiveAuthor(author: string): string {
+    switch (author) {
+        case "@benjaminjackman":
+            return "@.benjaminjackman";
+        default:
+            return author;
+    };
+}
+
 function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
     let comment = "";
     function log(text: string) {
@@ -153,6 +162,7 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
             reviewResult.unknownAuthors.push(author);
         }
     });
+    reviewResult.authorAccounts = reviewResult.authorAccounts.map(author => convertInactiveAuthor(author));
 
     let accountNames: string[] = ([] as string[]).concat(reviewResult.authorAccounts);
 
