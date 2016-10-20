@@ -23,8 +23,7 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     let file = reviewResult.file;
 
     let packageName = file.filename.substr(0, file.filename.indexOf("/"));
-    let testFileNames = [file.filename.substr(0, file.filename.length - 5) + "-tests.ts"];
-    testFileNames[1] = testFileNames[0] + "x";
+    let testFileNames = [`${packageName}-tests.ts`, `${packageName}-tests.tsx`];
     let testFileExists = info.files!.filter(f => testFileNames.indexOf(f.filename) !== -1).length !== 0;
 
     let content = info.contents[file.filename];
