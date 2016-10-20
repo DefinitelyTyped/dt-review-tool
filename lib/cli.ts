@@ -23,7 +23,7 @@ interface RootArgs {
 let root = commandpost
     .create<RootOptions, RootArgs>("dtreview <prNumber>")
     .version(pkg.version, "-v, --version")
-    .option("--user <user>", "target user(repository owner)", "DefinitelyTyped")
+    .option("--user <user>", "target user (repository owner)", "DefinitelyTyped")
     .option("--repo <repo>", "target repository", "DefinitelyTyped")
     .action((opts, args) => {
         let num = parseInt(args.prNumber, 10);

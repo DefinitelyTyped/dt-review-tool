@@ -16,7 +16,9 @@ export interface PRInfoRequest {
 }
 
 export interface PullRequest {
-
+    base: {
+        ref: string;
+    };
 }
 
 export interface PullRequestFile {
@@ -98,6 +100,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                         user: "DefinitelyTyped",
                         repo: "DefinitelyTyped",
                         path: file.filename,
+                        ref: info.pr.base.ref,
                     }, (err: any, res: any) => {
                         if (err) {
                             reject(err);
