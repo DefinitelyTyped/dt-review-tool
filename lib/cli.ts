@@ -12,7 +12,7 @@ import * as review from "./";
 import * as commandpost from "commandpost";
 
 interface RootOptions {
-    user: string[];
+    owner: string[];
     repo: string[];
 }
 
@@ -23,13 +23,13 @@ interface RootArgs {
 let root = commandpost
     .create<RootOptions, RootArgs>("dtreview <prNumber>")
     .version(pkg.version, "-v, --version")
-    .option("--user <user>", "target user (repository owner)", "DefinitelyTyped")
+    .option("--owner <owner>", "target owner (repository owner)", "DefinitelyTyped")
     .option("--repo <repo>", "target repository", "DefinitelyTyped")
     .action((opts, args) => {
         let num = parseInt(args.prNumber, 10);
         return review
             .generateComment({
-                user: opts.user[0],
+                owner: opts.owner[0],
                 repo: opts.repo[0],
                 number: num,
             }).then(comments => {
