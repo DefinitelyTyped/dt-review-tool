@@ -24,7 +24,10 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
 
     let packageName = file.filename.substr(0, file.filename.indexOf("/"));
     let testFileNames = [`${packageName}-tests.ts`, `${packageName}-tests.tsx`];
-    let testFileExists = info.files!.filter(f => testFileNames.indexOf(f.filename) !== -1).length !== 0;
+    let testFileExists = info.files!.filter(f => {
+        let testFilePaths = testFileNames.map(fn => `${packageName}/${fn}`);
+        return testFilePaths.indexOf(f.filename) !== -1;
+    }).length !== 0;
 
     let content = info.contents[file.filename];
     let headerInfo = header.parse(content);
