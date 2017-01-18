@@ -129,6 +129,8 @@ function convertInactiveAuthor(author: string): string {
         case "@Bartvds":
         case "@bartvds":
             return "@.Bartvds";
+        case "@job13er":
+            return "@.job13er";
         default:
             return author;
     };
