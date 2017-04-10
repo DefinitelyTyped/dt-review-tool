@@ -133,7 +133,7 @@ function convertInactiveAuthor(author: string): string {
             return "@.job13er";
         default:
             return author;
-    };
+    }
 }
 
 function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {

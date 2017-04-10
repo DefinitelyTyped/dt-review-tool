@@ -48,7 +48,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                 reject(err);
             } else {
                 resolve({
-                    pr: res,
+                    pr: res.data,
                     files: null,
                     contents: {},
                     baseContents: {},
@@ -66,7 +66,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     if (err) {
                         reject(err);
                     } else {
-                        info.files = res;
+                        info.files = res.data;
                         resolve(info);
                     }
                 });
@@ -81,11 +81,11 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     }, (err: any, res: any) => {
                         if (err) {
                             reject(err);
-                        } else if (res.encoding === "utf-8") {
-                            info.contents[file.filename] = res.content;
+                        } else if (res.data.encoding === "utf-8") {
+                            info.contents[file.filename] = res.data.content;
                             resolve(info);
                         } else {
-                            let b = new Buffer(res.content, "base64");
+                            let b = new Buffer(res.data.content, "base64");
                             info.contents[file.filename] = b.toString();
                             resolve(info);
                         }
@@ -104,11 +104,11 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     }, (err: any, res: any) => {
                         if (err) {
                             reject(err);
-                        } else if (res.encoding === "utf-8") {
-                            info.baseContents[file.filename] = res.content;
+                        } else if (res.data.encoding === "utf-8") {
+                            info.baseContents[file.filename] = res.data.content;
                             resolve(info);
                         } else {
-                            let b = new Buffer(res.content, "base64");
+                            let b = new Buffer(res.data.content, "base64");
                             info.baseContents[file.filename] = b.toString();
                             resolve(info);
                         }
