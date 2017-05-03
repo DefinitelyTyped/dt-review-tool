@@ -22,7 +22,7 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     let info = reviewResult.parent;
     let file = reviewResult.file;
 
-    let packageName = file.filename.substr(0, file.filename.indexOf("/"));
+    let packageName = file.filename.split("/")[1] || "package-name";
     let testFileNames = [`${packageName}-tests.ts`, `${packageName}-tests.tsx`];
     let testFileExists = info.files!.filter(f => {
         let testFilePaths = testFileNames.map(fn => `${packageName}/${fn}`);
