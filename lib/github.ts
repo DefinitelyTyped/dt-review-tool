@@ -19,6 +19,9 @@ export interface PullRequest {
     base: {
         ref: string;
     };
+    user: {
+        html_url: string;
+    };
 }
 
 export interface PullRequestFile {

@@ -153,6 +153,10 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
     }
     reviewResult.baseHeader = headerInfo;
     headerInfo.value!.authors.forEach(author => {
+        if (reviewResult.parent.pr.user.html_url === author.url) {
+            return;
+        }
+
         let accountNames = convertAuthorToAccount(author);
         if (accountNames) {
             reviewResult.authorAccounts = reviewResult.authorAccounts.concat(accountNames);
