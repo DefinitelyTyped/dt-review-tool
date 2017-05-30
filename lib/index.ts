@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as url from "url";
 
 import * as github from "./github";
@@ -25,8 +26,8 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     let packageName = file.filename.split("/")[1] || "package-name";
     let testFileNames = [`${packageName}-tests.ts`, `${packageName}-tests.tsx`];
     let testFileExists = info.files!.filter(f => {
-        let testFilePaths = testFileNames.map(fn => `${packageName}/${fn}`);
-        return testFilePaths.indexOf(f.filename) !== -1;
+        let basename = path.basename(f.filename);
+        return testFileNames.indexOf(basename) !== -1;
     }).length !== 0;
 
     let content = info.contents[file.filename];
