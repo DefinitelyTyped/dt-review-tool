@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "commandpost": "^1.0.0",
-    "definition-header": "^0.3.2",
+    "definition-header": "^0.4.0",
     "github": "^9.2.0",
     "npm": "^4.4.4"
   },
