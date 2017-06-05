@@ -24,6 +24,9 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     let file = reviewResult.file;
 
     let packageName = file.filename.split("/")[1] || "package-name";
+    let npmPackageName = packageName.indexOf('__') !== -1
+        ? `@${packageName.split('__').join('/')}` // 'bla__foo' on the file system -> '@bla/foo' on npm
+        : packageName; 
     let testFileNames = [`${packageName}-tests.ts`, `${packageName}-tests.tsx`];
     let testFileExists = info.files!.filter(f => {
         let basename = path.basename(f.filename);
@@ -38,7 +41,7 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
 
     return new Promise<ReviewResult>((resolve, _reject) => {
         npm.load(null as any, _err => {
-            (npm.commands.info as any)([packageName], true, (err: any, result: any) => {
+            (npm.commands.info as any)([npmPackageName], true, (err: any, result: any) => {
                 let npmExists = false;
                 let info: any;
                 if (!err && reviewResult.baseHeader) {
@@ -57,10 +60,10 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
                 log(``);
                 log(`* [${npmExists ? "X" : " "}] is correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)?`);
                 if (npmExists) {
-                    log(`  * https://www.npmjs.com/package/${packageName} - ${info.homepage}`);
+                    log(`  * https://www.npmjs.com/package/${npmPackageName} - ${info.homepage}`);
                 } else {
-                    log(`  * https://www.npmjs.com/package/${packageName}`);
-                    log(`  * http://bower.io/search/?q=${packageName}`);
+                    log(`  * https://www.npmjs.com/package/${npmPackageName}`);
+                    log(`  * http://bower.io/search/?q=${npmPackageName}`);
                     log(`  * others?`);
                 }
                 log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ")})`);
