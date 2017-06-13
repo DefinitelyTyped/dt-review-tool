@@ -24,9 +24,9 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
     let file = reviewResult.file;
 
     let packageName = file.filename.split("/")[1] || "package-name";
-    let npmPackageName = packageName.indexOf('__') !== -1
-        ? `@${packageName.split('__').join('/')}` // 'bla__foo' on the file system -> '@bla/foo' on npm
-        : packageName; 
+    let npmPackageName = packageName.indexOf("__") !== -1
+        ? `@${packageName.split("__").join("/")}` // 'bla__foo' on the file system -> '@bla/foo' on npm
+        : packageName;
     let testFileNames = [`${packageName}-tests.ts`, `${packageName}-tests.tsx`];
     let testFileExists = info.files!.filter(f => {
         let basename = path.basename(f.filename);
