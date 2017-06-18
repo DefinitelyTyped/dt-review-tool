@@ -7,7 +7,7 @@ import * as header from "definition-header";
 
 export interface ReviewResult {
     parent: github.PRInfo;
-    file: github.PullRequestFile;
+    file: GithubAPIv3.PullRequest.File;
     baseHeader?: header.Result;
     authorAccounts: string[];
     unknownAuthors: header.model.Author[];

@@ -3,8 +3,8 @@ import Client = require("github");
 /* tslint:enable:no-require-imports */
 
 export interface PRInfo {
-    pr: PullRequest;
-    files: PullRequestFile[] | null;
+    pr: GithubAPIv3.PullRequest;
+    files: GithubAPIv3.PullRequest.File[] | null;
     contents: { [path: string]: string; };
     baseContents: { [path: string]: string; };
 }
@@ -13,21 +13,6 @@ export interface PRInfoRequest {
     owner?: string;
     repo?: string;
     number: number;
-}
-
-export interface PullRequest {
-    base: {
-        ref: string;
-    };
-    user: {
-        html_url: string;
-    };
-}
-
-export interface PullRequestFile {
-    sha: string;
-    filename: string;
-    status: string;
 }
 
 export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
@@ -45,7 +30,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
             owner: req.owner || "DefinitelyTyped",
             repo: req.repo || "DefinitelyTyped",
             number: req.number,
-        }, (err: any, res: any) => {
+        }, (err: any, res: GithubAPIv3.Response<GithubAPIv3.PullRequest>) => {
             if (err) {
                 reject(err);
             } else {
@@ -64,7 +49,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                     owner: req.owner || "DefinitelyTyped",
                     repo: req.repo || "DefinitelyTyped",
                     number: req.number,
-                }, (err: any, res: any) => {
+                }, (err: any, res: GithubAPIv3.Response<GithubAPIv3.PullRequest.File[]>) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -80,7 +65,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                         owner: req.owner || "DefinitelyTyped",
                         repo: req.repo || "DefinitelyTyped",
                         sha: file.sha,
-                    }, (err: any, res: any) => {
+                    }, (err: any, res: GithubAPIv3.Response<GithubAPIv3.GitData.Blob>) => {
                         if (err) {
                             reject(err);
                         } else if (res.data.encoding === "utf-8") {
@@ -103,7 +88,7 @@ export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
                         repo: "DefinitelyTyped",
                         path: file.filename,
                         ref: info.pr.base.ref,
-                    }, (err: any, res: any) => {
+                    }, (err: any, res: GithubAPIv3.Response<GithubAPIv3.Repository.FileContents>) => {
                         if (err) {
                             reject(err);
                         } else if (res.data.encoding === "utf-8") {
