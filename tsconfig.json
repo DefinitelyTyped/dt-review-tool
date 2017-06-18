@@ -34,7 +34,7 @@
     },
     "include": [
         "lib/**/*.ts",
-        "github.d.ts"
+        "github-api.d.ts"
     ],
     "exclude": [
         "node_modules"
