@@ -33,8 +33,7 @@
         "listEmittedFiles": false
     },
     "include": [
-        "lib/**/*.ts",
-        "github.d.ts"
+        "lib/**/*.ts"
     ],
     "exclude": [
         "node_modules"

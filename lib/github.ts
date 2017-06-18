@@ -32,7 +32,6 @@ export interface PullRequestFile {
 
 export function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
     let github = new Client({
-        version: "3.0.0",
         // debug: true
     });
     github.authenticate({
