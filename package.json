@@ -18,9 +18,11 @@
     "commandpost": "^1.0.0",
     "definition-header": "^0.5.0",
     "github": "^9.2.0",
+    "lodash": "^4.17.4",
     "npm": "^4.4.4"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.71",
     "@types/node": "^7.0.12",
     "@types/npm": "^2.0.28",
     "@types/parsimmon": "^1.0.4",
