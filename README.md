@@ -11,7 +11,7 @@
 $ git clone git@github.com:DefinitelyTyped/dt-review-tool.git
 $ cd dt-review-bot
 $ npm install
-$ grunt setup default
+$ grunt
 $ ./bin/dtreview --help
   Usage: dtreview [--] <prNumber>
 $ ./bin/dtreview 1982
