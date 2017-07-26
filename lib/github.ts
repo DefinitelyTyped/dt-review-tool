@@ -1,5 +1,6 @@
 /* tslint:disable:no-require-imports */
 import Client = require("github");
+import path = require("path");
 /* tslint:enable:no-require-imports */
 
 export interface PRInfo {
@@ -48,6 +49,15 @@ export async function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
         number: req.number,
     });
     info.files = pullRequestFilesResponse.data;
+    info.files = info.files.filter(file => {
+        switch (path.extname(file.filename)) {
+            case ".ts":
+            case ".tsx":
+                return true;
+            default:
+                return false;
+        }
+    });
 
     // Get the pull request's files' contents
     let blobRequests = info.files.map(file => {

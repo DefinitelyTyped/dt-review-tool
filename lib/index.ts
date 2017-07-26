@@ -215,7 +215,7 @@ export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewR
     return github
         .getPRInfo(pr)
         .then(info => {
-            let ps = info.files!
+            let ps = info.files
                 .filter(file => /\.d\.ts(x)?$/.test(file.filename))
                 .map(file => {
                     let reviewResult: ReviewResult = {
