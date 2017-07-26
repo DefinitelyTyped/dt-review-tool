@@ -3,7 +3,7 @@
 ## Functions
 
 1. Present a self-check list.
-2. Mention to authors.
+2. Mention authors.
 
 ## How to use
 
