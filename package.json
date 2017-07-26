@@ -8,6 +8,7 @@
   "scripts": {
     "build": "grunt default",
     "preversion": "npm run test",
+    "start": "node ./bin/dtreview",
     "test": "grunt test"
   },
   "directories": {
