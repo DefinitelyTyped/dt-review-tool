@@ -226,7 +226,26 @@ export function constructReviewResult(pr: github.PRInfoRequest): Promise<ReviewR
                     };
 
                     if (file.status === "modified") {
-                        return processModified(reviewResult);
+                        return processModified(reviewResult).then(async reviewResult => {
+                            // If parsing fails for a file, fall back to index.d.ts's header
+                            if (path.basename(file.filename) !== "index.d.ts" &&
+                                reviewResult.message === "can't parse definition header...") {
+                                let indexFilename = path.dirname(file.filename) + "/index.d.ts";
+                                let indexReviewResult = await processModified({
+                                    parent: info,
+                                    file: { filename: indexFilename } as any,
+                                    authorAccounts: [],
+                                    unknownAuthors: [],
+                                });
+
+                                reviewResult.baseHeader = indexReviewResult.baseHeader;
+                                reviewResult.authorAccounts = indexReviewResult.authorAccounts;
+                                reviewResult.unknownAuthors = indexReviewResult.unknownAuthors;
+                                reviewResult.message = indexReviewResult.message;
+                            }
+
+                            return reviewResult;
+                        });
                     } else if (file.status === "added") {
                         return processAdded(reviewResult);
                     } else if (file.status === "removed") {

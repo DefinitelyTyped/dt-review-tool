@@ -1,6 +1,7 @@
 /* tslint:disable:no-require-imports */
 import Client = require("github");
 import path = require("path");
+import * as _ from "lodash";
 /* tslint:enable:no-require-imports */
 
 export interface PRInfo {
@@ -93,6 +94,36 @@ export async function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
         });
     });
     await Promise.all(fileContentsRequests);
+
+    // Always download index.d.ts for a package to reference its header if necessary
+    let additionalFiles: string[] = [];
+    let filesByPackage = _.groupBy(info.files, file => {
+        let parts = path.dirname(file.filename).split("/");
+        return _.last(parts);
+    });
+    _.forEach(filesByPackage, pkg => {
+        let index = pkg.find(file => path.basename(file.filename) === "index.d.ts");
+        if (!index) {
+            let filename = path.dirname(_.first(pkg)!.filename) + "/index.d.ts";
+            additionalFiles.push(filename);
+        }
+    });
+    let additionalFilesContentsRequests = additionalFiles.map(filename => {
+        return github.repos.getContent({
+            owner: owner,
+            repo: repo,
+            path: filename,
+            ref: info.pr.base.ref,
+        }).then((res: GithubAPIv3.Response<GithubAPIv3.Repository.FileContents>) => {
+            if (res.data.encoding === "utf-8") {
+                info.baseContents[filename] = res.data.content;
+            } else {
+                let b = new Buffer(res.data.content, "base64");
+                info.baseContents[filename] = b.toString();
+            }
+        });
+    });
+    await Promise.all(additionalFilesContentsRequests);
 
     return info;
 }
