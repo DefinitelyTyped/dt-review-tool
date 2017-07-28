@@ -2,6 +2,7 @@ import * as path from "path";
 import * as url from "url";
 
 import * as github from "./github";
+import * as GithubAPIv3 from "../github-api";
 import * as npm from "npm";
 import * as header from "definition-header";
 

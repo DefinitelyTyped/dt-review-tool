@@ -4,6 +4,8 @@ import path = require("path");
 import * as _ from "lodash";
 /* tslint:enable:no-require-imports */
 
+import * as GithubAPIv3 from "../github-api";
+
 export interface PRInfo {
     pr: GithubAPIv3.PullRequest;
     files: GithubAPIv3.PullRequest.File[];

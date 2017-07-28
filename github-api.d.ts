@@ -331,3 +331,5 @@ declare namespace GithubAPIv3 {
         }
     }
 }
+
+export = GithubAPIv3;
