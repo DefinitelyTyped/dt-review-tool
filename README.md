@@ -21,7 +21,7 @@ $ npm start -- --help
     --owner <owner>  target owner (repository owner)
     --repo <repo>    target repository
     
-$ ./bin/dtreview 18409
+$ npm start -- 18409
 
 *types/saml20/index.d.ts*
 
