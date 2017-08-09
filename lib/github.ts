@@ -1,9 +1,6 @@
-/* tslint:disable:no-require-imports */
-import Client = require("github");
-import path = require("path");
+import * as Client from "github";
+import * as path from "path";
 import * as _ from "lodash";
-/* tslint:enable:no-require-imports */
-
 import * as GithubAPIv3 from "../github-api";
 
 export interface PRInfo {
