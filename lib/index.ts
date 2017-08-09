@@ -40,8 +40,8 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
         reviewResult.baseHeader = headerInfo;
     }
 
-    return new Promise<ReviewResult>((resolve, _reject) => {
-        npm.load(null as any, _err => {
+    return new Promise<ReviewResult>((resolve) => {
+        npm.load(null as any, () => {
             (npm.commands.info as any)([npmPackageName], true, (err: any, result: any) => {
                 let npmExists = false;
                 let info: any;
