@@ -98,7 +98,8 @@ export async function getPRInfo(req: PRInfoRequest): Promise<PRInfo> {
     let additionalFiles: string[] = [];
     let filesByPackage = _.groupBy(info.files, file => {
         let parts = path.dirname(file.filename).split("/");
-        return _.last(parts);
+        // /types/{package}
+        return parts[1];
     });
     _.forEach(filesByPackage, pkg => {
         let index = pkg.find(file => path.basename(file.filename) === "index.d.ts");
