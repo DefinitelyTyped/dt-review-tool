@@ -68,7 +68,6 @@ function processAdded(reviewResult: ReviewResult): Promise<ReviewResult> {
                     log(`  * others?`);
                 }
                 log(`* [${testFileExists ? "X" : " "}] has a [test file](http://definitelytyped.org/guides/contributing.html#tests)? (${testFileNames.join(" or ")})`);
-                log(`* [ ] pass the Travis CI test?`);
 
                 reviewResult.message = comment;
 
@@ -190,11 +189,6 @@ function processModified(reviewResult: ReviewResult): Promise<ReviewResult> {
         log(`to author${accountNames.length === 1 ? "" : "s"} (${accountNames.join(" ")}). Could you review this PR?`);
         log(":+1: or :-1:?");
     }
-
-    log(``);
-    log(`Checklist`);
-    log(``);
-    log(`* [ ] pass the Travis CI test?`);
 
     reviewResult.message = comment;
 
